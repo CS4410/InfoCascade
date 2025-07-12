@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>InfoCascade</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2c3e50;
+      --accent-color: #e74c3c;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .hero-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .notice-card {
+      border-left: 4px solid var(--primary-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .notice-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .btn-subscribe {
+      background-color: #2ecc71;
+      border-color: #2ecc71;
+    }
+
+    .text-accent {
+      color: var(--accent-color);
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+
+  <!-- Subscription Modal -->
+  <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subscriptionModalLabel"><i class="fas fa-envelope me-2"></i>Subscribe to get Notices via Email
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Get instant updates about college events, exams, and important announcements</p>
+          <form id="subscriptionForm" action="/subscribe" method="POST">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold"><i class="fas fa-user me-1"></i> Name</label>
+                  <input type="text" name="name" class="form-control" placeholder="Enter your full name" required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold"><i class="fas fa-envelope me-1"></i> Email</label>
+                  <input type="email" name="email" class="form-control" placeholder="Enter your email address"
+                    required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold"><i class="fas fa-code-branch me-1"></i> Branch</label>
+                  <select name="branch" class="form-select" required>
+                    <option value="" selected disabled>Select your branch</option>
+                    <option value="CSE">Computer Science & Engineering (CSE)</option>
+                    <option value="IT">Information Technology (IT)</option>
+                    <option value="ECE">Electronics & Communication Engineering (ECE)</option>
+                    <option value="EE">Electrical Engineering (EE)</option>
+                    <option value="ME">Mechanical Engineering (ME)</option>
+                    <option value="CE">Civil Engineering (CE)</option>
+                    <option value="Production">Production Engineering</option>
+                    <option value="RoboticsAI">Robotics & Artificial Intelligence</option>
+                    <option value="BCA">Bachelor of Computer Applications (BCA)</option>
+                    <option value="BBA">Bachelor of Business Administration (BBA)</option>
+                    <option value="BVoc">Bachelor of Vocation (Interior Design)</option>
+                    <option value="MTechCSE">M.Tech in Computer Science & Engineering</option>
+                    <option value="MTechIT">M.Tech in Computer Science & Information Technology</option>
+                    <option value="MTechECE">M.Tech in Electronics & Communication Engineering</option>
+                    <option value="MTechPower">M.Tech in Power Engineering</option>
+                    <option value="MTechProduction">M.Tech in Production Engineering</option>
+                    <option value="MTechStructural">M.Tech in Structural Engineering</option>
+                    <option value="MTechEnvironmental">M.Tech in Environmental Engineering</option>
+                    <option value="MTechStructuralEngg">M.Tech in Structural Engineering</option>
+                    <option value="MTechComputerScienceIT">M.Tech in Computer Science & IT</option>
+                    <option value="MBA">Master of Business Administration (MBA)</option>
+                    <option value="MCA">Master of Computer Applications (MCA)</option>
+                    <option value="MScPhysics">M.Sc in Physics</option>
+                    <option value="MScChemistry">M.Sc in Chemistry</option>
+                    <option value="PhD">Ph.D Programs (Civil, Mechanical, Electrical Engineering)</option>
+
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold"><i class="fas fa-calendar me-1"></i> Year</label>
+                  <select name="year" class="form-select" required>
+                    <option value="" selected disabled>Select your year</option>
+                    <option value="1">First Year</option>
+                    <option value="2">Second Year</option>
+                    <option value="3">Third Year</option>
+                    <option value="4">Fourth Year</option>
+                    <option value="4">Fifth Year</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="d-grid gap-2 mt-3">
+              <button type="submit" class="btn btn-subscribe btn-lg">
+                <i class="fas fa-paper-plane me-2"></i> Subscribe Now
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+
+    <!-- Header Section -->
+    <div class="hero-header text-center">
+      <h1 class="display-4 fw-bold">Welcome to InfoCascade</h1>
+      <p class="lead">“ InfoCascade is a one-stop source for all important notifications — academic updates, results, fees, events, and more. Join the flow of trusted and timely information.”
+
+</p>
+
+    </div>
+
+    <!-- Top Navigation -->
+    <div class="top-nav">
+      <button class="btn btn-subscribe" data-bs-toggle="modal" data-bs-target="#subscriptionModal">
+        <i class="fas fa-bell me-1"></i> Subscribe
+      </button>
+       <a href="/admin/login" class="btn btn-primary"><i class="fas fa-lock me-1"></i> Admin Login</a>
+    </div>
+
+
+    <!-- Notices Section -->
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="text-center mb-4"><i class="fas fa-bullhorn text-accent me-2"></i>Latest Updates</h2>
+
+        <% if (notices.length===0) { %>
+          <div class="alert alert-info text-center">
+            <i class="fas fa-info-circle me-2"></i> No notices available at the moment. Please check back later.
+          </div>
+          <% } else { %>
+            <% notices.forEach(notice=> { %>
+              <div class="card notice-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <h5 class="card-title fw-bold"><i class="fas fa-sticky-note text-primary me-2"></i>
+                      <%= notice.title %>
+                    </h5>
+                    
+                  </div>
+                  <p class="card-text mt-2">
+                    <%= notice.message %>
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center mt-3">
+                    <small class="text-muted">
+                      <i class="fas fa-user me-1"></i> Posted by <%= notice.postedBy && notice.postedBy.name ?
+                        notice.postedBy.name : 'Admin' %>
+                    </small>
+                    <small class="text-muted">
+                      <i class="fas fa-calendar-alt me-1"></i>
+                      <%= notice.date ? new Date(notice.date).toLocaleString() : '' %>
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+                <% } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+  <div id="subscriptionToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="toastMsg">
+        <!-- Message will be set by JS -->
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+      <p class="mb-0">© 2025 InfoCascade - Jai Hoo Satnaryan.</p>
+       <p class="mb-0">Designed and Developed by Karan Singh.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Show the subscription modal automatically on page load
+      var myModal = new bootstrap.Modal(document.getElementById('subscriptionModal'));
+      myModal.show();
+
+      // AJAX subscription form
+      const form = document.getElementById('subscriptionForm');
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          const res = await fetch('/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          const text = await res.text();
+
+          // Show toast with response message
+          document.getElementById('toastMsg').textContent = text;
+          var toast = new bootstrap.Toast(document.getElementById('subscriptionToast'));
+          toast.show();
+
+          // Close the modal
+          var modal = bootstrap.Modal.getInstance(document.getElementById('subscriptionModal'));
+          modal.hide();
+
+          // Reset the form
+          form.reset();
+        } catch (err) {
+          document.getElementById('toastMsg').textContent = "Something went wrong. Please try again.";
+          var toast = new bootstrap.Toast(document.getElementById('subscriptionToast'));
+          toast.show();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
