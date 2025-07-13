@@ -198,7 +198,9 @@
                   <td><%= user.email %></td>
                   <td><%= user.branch %></td>
                   <td><%= user.year %></td>
-                  <td><%= user.subscribedAt ? new Date(user.subscribedAt).toLocaleString() : '' %></td>
+                  <!-- <td><%= user.subscribedAt ? new Date(user.subscribedAt).toLocaleString() : '' %></td> -->
+                  <td><%= user.subscribedAt ? new Date(user.subscribedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : '' %></td>
+
                   <td>
                     <form action="/admin/remove-user/<%= user._id %>" method="POST" onsubmit="return confirm('Are you sure you want to remove this user?');">
                       <button type="submit" class="btn btn-danger btn-sm">
