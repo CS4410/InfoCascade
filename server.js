@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const moment = require('moment-timezone');
 
 const app = express();
 
@@ -33,6 +34,11 @@ const userRoutes = require('./routes/user');
 
 app.use('/admin', adminRoutes); // Admin dashboard
 app.use('/', userRoutes);       // Home + subscription
+
+// Timezone configuration
+app.locals.formatIST = function(date) {
+  return moment(date).tz('Asia/Kolkata').format('DD/MM/YYYY, h:mm:ss a');
+};
 
 // Start Server
 const PORT = process.env.PORT || 5000;

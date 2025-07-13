@@ -199,7 +199,7 @@
                     </small>
                     <small class="text-muted">
                       <i class="fas fa-calendar-alt me-1"></i>
-                      <%= notice.date ? new Date(notice.date).toLocaleString() : '' %>
+                      <%= notice.date ? new Date(notice.date).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : '' %>
                     </small>
                   </div>
                 </div>
