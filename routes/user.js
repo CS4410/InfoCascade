@@ -1,8 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const nodemailer = require('nodemailer');
 const Notice = require('../models/Notice');
 const User = require('../models/User');
-const nodemailer = require('nodemailer'); // add at top if not present
+
+// create transporter once (will use env vars on Render)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
 
 // Home page showing latest notices + subscription form
 router.get('/', async (req, res) => {
@@ -23,37 +32,29 @@ router.post('/subscribe', async (req, res) => {
   res.send('Subscription successful! You will receive notice updates via email.');
 });
 
-// Contact form POST: sends email to admin
+// Contact form POST
 router.post('/contact', async (req, res) => {
+  console.log('[/contact] body:', req.body);
   try {
     const { name, email, message } = req.body || {};
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Name, email and message are required.' });
     }
 
-    // create transporter (uses env vars)
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: 'infocascade.gndec@gmail.com',
-      subject: `Infocascade query from ${name}`,
+      subject: `infocascade query from ${name}`,
       replyTo: email,
-      text: `You have received a new query via InfoCascade.\n\nName: ${name}\nEmail: ${email}\n\nQuery:\n${message}`
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
     };
 
-    await transporter.sendMail(mailOptions);
-
-    return res.json({ ok: true, message: 'Thank You!! , we will respond as soon as possible' });
+    const info = await transporter.sendMail(mailOptions);
+    console.log('[/contact] mail sent:', info && info.response ? info.response : info);
+    return res.json({ ok: true, message: 'Your message has been sent to the admin.' });
   } catch (err) {
-    console.error('Contact send error:', err);
-    return res.status(500).json({ error: 'Unable to send message at this time. Try again' });
+    console.error('[/contact] send error:', err);
+    return res.status(500).json({ error: 'Unable to send message at this time.' });
   }
 });
 
