@@ -9,12 +9,12 @@ mongoose.connect(process.env.MONGO_URL)
   .catch(err => console.error('Mongo Error ', err));
 
 async function createAdmin() {
-  const hashedPassword = await bcrypt.hash('', 10); // change this password
+  const hashedPassword = await bcrypt.hash('Jayant@110125', 10); // change this password
   const admin = new Admin({
-    name: "Karan Singh",
-    email: "singhkaran91973@gmail.com",
+    name: "Jayant Kumawat",
+    email: "jayantkumawat802@gmail.com",
     password: hashedPassword,
-    year: "4th",
+    year: "3rd",
     branch: "CSE"
   });
 

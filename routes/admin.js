@@ -69,35 +69,35 @@ router.post('/post-notice', async (req, res) => {
   await newNotice.save();
 
   // Notify Users via Email
-  const users = await User.find();
-  const emails = users.map(u => u.email);
+  // const users = await User.find();
+  // const emails = users.map(u => u.email);
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  });
+  // const transporter = nodemailer.createTransport({
+  //   service: 'gmail',
+  //   auth: {
+  //     user: process.env.EMAIL_USER,
+  //     pass: process.env.EMAIL_PASS
+  //   }
+  // });
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: emails,
-    subject: `New Notice: ${title}`,
-    text: `Dear Student,
+//   const mailOptions = {
+//     from: process.env.EMAIL_USER,
+//     to: emails,
+//     subject: `New Notice: ${title}`,
+//     text: `Dear Student,
 
-${content}
+// ${content}
 
-Best regards,
-Karan Singh
+// Best regards,
+// Karan Singh
 
-`
-  };
+// `
+//   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) console.error('Email error:', error);
-    else console.log('Emails sent:', info.response);
-  });
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //   if (error) console.error('Email error:', error);
+  //   else console.log('Emails sent:', info.response);
+  // });
 
   res.redirect('/admin/dashboard');
 });
